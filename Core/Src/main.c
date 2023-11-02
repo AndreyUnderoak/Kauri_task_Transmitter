@@ -95,6 +95,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   CANSPI_Initialize();
+
   //init of sensor
   accel_init(&hi2c1);
 
@@ -111,6 +112,7 @@ int main(void)
 	  //if ready to get data
 	  if(accel_get_data(data)) continue;
 
+	  //create data packet
 	  txMessage.frame.idType = dSTANDARD_CAN_MSG_ID_2_0B;
 	  txMessage.frame.id = 0x0A;
 	  txMessage.frame.dlc = 8;
