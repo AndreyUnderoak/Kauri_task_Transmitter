@@ -1,0 +1,4 @@
+../Core/Src/accel.c:9:16:platform_write	40	static
+../Core/Src/accel.c:19:16:platform_read	40	static
+../Core/Src/accel.c:30:6:accel_init	16	static
+../Core/Src/accel.c:61:5:accel_get_data	24	static
