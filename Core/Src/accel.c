@@ -58,7 +58,7 @@ void accel_init(I2C_HandleTypeDef * i2c_device){
 
 }
 
-int accel_get_data(float * data)
+int accel_get_data(uint8_t * data)
 {
   /* Read samples in polling mode (no int) */
   /* Read output only if new value is available */
@@ -68,17 +68,16 @@ int accel_get_data(float * data)
 	  return -1;
 
   /* Read acceleration data */
-  memset(data_raw_acceleration, 0x00, 3 * sizeof(int16_t));
-  lis331dlh_acceleration_raw_get(&dev_ctx, data_raw_acceleration);
-  acceleration_mg[0] =
-		  lis331dlh_from_fs2_to_mg(data_raw_acceleration[0]);
-  acceleration_mg[1] =
-	lis331dlh_from_fs2_to_mg(data_raw_acceleration[1]);
-  acceleration_mg[2] =
-	lis331dlh_from_fs2_to_mg(data_raw_acceleration[2]);
+  lis331dlh_acceleration_raw_get_6_byte(&dev_ctx, data);
+//  acceleration_mg[0] =
+//		  lis331dlh_from_fs2_to_mg(data_raw_acceleration[0]);
+//  acceleration_mg[1] =
+//	lis331dlh_from_fs2_to_mg(data_raw_acceleration[1]);
+//  acceleration_mg[2] =
+//	lis331dlh_from_fs2_to_mg(data_raw_acceleration[2]);
 
-  for(size_t i = 0; i < 3; i++)
-	  data[i] = acceleration_mg[i];
+//  for(size_t i = 0; i < 3; i++)
+//	  data[i] = acceleration_mg[i];
   return 0;
 }
 

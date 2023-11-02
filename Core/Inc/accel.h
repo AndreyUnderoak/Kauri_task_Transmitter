@@ -17,7 +17,7 @@ void accel_init(I2C_HandleTypeDef* i2c_device);
   * @param  data  to data buffer in  float[3](ptr)
   * @retval       interface status 0->ready to get data
   */
-int accel_get_data(float* data);
+int accel_get_data(uint8_t* data);
 
 
 #endif /* INC_ACCEL_H_ */

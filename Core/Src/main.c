@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
+#include "accel.h"
 #include "CANSPI.h"
 /* USER CODE END Includes */
 
@@ -92,27 +93,38 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+
   CANSPI_Initialize();
+  //init of sensor
+  accel_init(&hi2c1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  //buffer for data
+	  uint8_t data[6] = {0};
+
+	  //if ready to get data
+	  if(accel_get_data(data)) continue;
+
 	  txMessage.frame.idType = dSTANDARD_CAN_MSG_ID_2_0B;
 	  txMessage.frame.id = 0x0A;
 	  txMessage.frame.dlc = 8;
-	  txMessage.frame.data0 = 0;
-	  txMessage.frame.data1 = 1;
-	  txMessage.frame.data2 = 2;
-	  txMessage.frame.data3 = 3;
-	  txMessage.frame.data4 = 4;
-	  txMessage.frame.data5 = 5;
-	  txMessage.frame.data6 = 6;
-	  txMessage.frame.data7 = 7;
+	  txMessage.frame.data0 = data[0];
+	  txMessage.frame.data1 = data[1];
+	  txMessage.frame.data2 = data[2];
+	  txMessage.frame.data3 = data[3];
+	  txMessage.frame.data4 = data[4];
+	  txMessage.frame.data5 = data[5];
+	  txMessage.frame.data6 = 0;
+	  txMessage.frame.data7 = 0;
 	  CANSPI_Transmit(&txMessage);
 
-	  HAL_Delay(1000);
+	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

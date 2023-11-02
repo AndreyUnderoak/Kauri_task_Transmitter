@@ -812,6 +812,9 @@ int32_t lis331dlh_int2_6d_treshold_set(stmdev_ctx_t *ctx,
 int32_t lis331dlh_int2_6d_treshold_get(stmdev_ctx_t *ctx,
                                        uint8_t *val);
 
+int32_t lis331dlh_acceleration_raw_get_6_byte(stmdev_ctx_t *ctx,
+                                       int8_t *val);
+
 /**
   *@}
   *
